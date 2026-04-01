@@ -26,19 +26,19 @@ export const WeatherScreen: React.FC = () => {
         visibility: 10,
         precipitation: 0,
         weatherDescription: 'Partly cloudy',
-        weatherIcon: 'Cloud',
+        weatherIcon: '⛅',
         timestamp: new Date().toISOString(),
     }), []);
 
     const placeholderHourly: HourlyForecast[] = useMemo(() => {
         const now = Date.now();
         return [
-            { time: new Date(now + 1 * 60 * 60 * 1000).toISOString(), temperature: 22, weatherDescription: 'Cloudy', weatherIcon: 'Cloud', precipitationProbability: 10 },
-            { time: new Date(now + 3 * 60 * 60 * 1000).toISOString(), temperature: 21, weatherDescription: 'Cloudy', weatherIcon: 'Cloud', precipitationProbability: 15 },
-            { time: new Date(now + 6 * 60 * 60 * 1000).toISOString(), temperature: 19, weatherDescription: 'Light rain', weatherIcon: 'Rain', precipitationProbability: 35 },
-            { time: new Date(now + 9 * 60 * 60 * 1000).toISOString(), temperature: 18, weatherDescription: 'Light rain', weatherIcon: 'Rain', precipitationProbability: 40 },
-            { time: new Date(now + 12 * 60 * 60 * 1000).toISOString(), temperature: 17, weatherDescription: 'Clear', weatherIcon: 'Clear', precipitationProbability: 5 },
-            { time: new Date(now + 15 * 60 * 60 * 1000).toISOString(), temperature: 16, weatherDescription: 'Clear', weatherIcon: 'Clear', precipitationProbability: 0 },
+            { time: new Date(now + 1 * 60 * 60 * 1000).toISOString(), temperature: 22, weatherDescription: 'Cloudy', weatherIcon: '☁️', precipitationProbability: 10 },
+            { time: new Date(now + 3 * 60 * 60 * 1000).toISOString(), temperature: 21, weatherDescription: 'Cloudy', weatherIcon: '☁️', precipitationProbability: 15 },
+            { time: new Date(now + 6 * 60 * 60 * 1000).toISOString(), temperature: 19, weatherDescription: 'Light rain', weatherIcon: '🌧️', precipitationProbability: 35 },
+            { time: new Date(now + 9 * 60 * 60 * 1000).toISOString(), temperature: 18, weatherDescription: 'Light rain', weatherIcon: '🌧️', precipitationProbability: 40 },
+            { time: new Date(now + 12 * 60 * 60 * 1000).toISOString(), temperature: 17, weatherDescription: 'Clear', weatherIcon: '☀️', precipitationProbability: 5 },
+            { time: new Date(now + 15 * 60 * 60 * 1000).toISOString(), temperature: 16, weatherDescription: 'Clear', weatherIcon: '☀️', precipitationProbability: 0 },
         ];
     }, []);
 
@@ -50,11 +50,11 @@ export const WeatherScreen: React.FC = () => {
         };
 
         return [
-            { date: makeDate(0), temperature: { min: 16, max: 23 }, weatherDescription: 'Partly cloudy', weatherIcon: 'Cloud', precipitation: 10, windSpeed: 8 },
-            { date: makeDate(1), temperature: { min: 15, max: 21 }, weatherDescription: 'Light rain', weatherIcon: 'Rain', precipitation: 40, windSpeed: 12 },
-            { date: makeDate(2), temperature: { min: 14, max: 20 }, weatherDescription: 'Overcast', weatherIcon: 'Cloud', precipitation: 20, windSpeed: 9 },
-            { date: makeDate(3), temperature: { min: 13, max: 19 }, weatherDescription: 'Clear', weatherIcon: 'Clear', precipitation: 0, windSpeed: 6 },
-            { date: makeDate(4), temperature: { min: 12, max: 18 }, weatherDescription: 'Clear', weatherIcon: 'Clear', precipitation: 0, windSpeed: 5 },
+            { date: makeDate(0), temperature: { min: 16, max: 23 }, weatherDescription: 'Partly cloudy', weatherIcon: '⛅', precipitation: 10, windSpeed: 8 },
+            { date: makeDate(1), temperature: { min: 15, max: 21 }, weatherDescription: 'Light rain', weatherIcon: '🌧️', precipitation: 40, windSpeed: 12 },
+            { date: makeDate(2), temperature: { min: 14, max: 20 }, weatherDescription: 'Overcast', weatherIcon: '☁️', precipitation: 20, windSpeed: 9 },
+            { date: makeDate(3), temperature: { min: 13, max: 19 }, weatherDescription: 'Clear', weatherIcon: '☀️', precipitation: 0, windSpeed: 6 },
+            { date: makeDate(4), temperature: { min: 12, max: 18 }, weatherDescription: 'Clear', weatherIcon: '☀️', precipitation: 0, windSpeed: 5 },
         ];
     }, []);
 
