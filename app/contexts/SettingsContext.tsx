@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface Settings {
-    dynamicBackground: boolean;
     autoRefresh: boolean;
     notifications: boolean;
     units: 'metric' | 'imperial';
@@ -15,7 +14,6 @@ interface SettingsContextType {
 }
 
 const defaultSettings: Settings = {
-    dynamicBackground: true,
     autoRefresh: true,
     notifications: false,
     units: 'metric',

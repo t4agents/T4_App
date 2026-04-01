@@ -80,24 +80,6 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
 
                     <View style={styles.settingItem}>
                         <View style={styles.settingInfo}>
-                            <Text style={styles.settingTitle}>Dynamic Background</Text>
-                            <Text style={styles.settingDescription}>
-                                Change app background based on current weather conditions
-                            </Text>
-                        </View>
-                        <Switch
-                            value={settings.dynamicBackground}
-                            onValueChange={(value) => updateSetting('dynamicBackground', value)}
-                            trackColor={{
-                                false: currentTheme.colors.border,
-                                true: currentTheme.colors.primary
-                            }}
-                            thumbColor={settings.dynamicBackground ? '#fff' : currentTheme.colors.textSecondary}
-                        />
-                    </View>
-
-                    <View style={styles.settingItem}>
-                        <View style={styles.settingInfo}>
                             <Text style={styles.settingTitle}>Units</Text>
                             <Text style={styles.settingDescription}>
                                 Choose temperature and measurement units
@@ -210,24 +192,6 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
                     <ScrollView style={styles.content}>
                         <View style={styles.section}>
                             <Text style={styles.sectionTitle}>Display</Text>
-
-                            <View style={styles.settingItem}>
-                                <View style={styles.settingInfo}>
-                                    <Text style={styles.settingTitle}>Dynamic Background</Text>
-                                    <Text style={styles.settingDescription}>
-                                        Change app background based on current weather conditions
-                                    </Text>
-                                </View>
-                                <Switch
-                                    value={settings.dynamicBackground}
-                                    onValueChange={(value) => updateSetting('dynamicBackground', value)}
-                                    trackColor={{
-                                        false: currentTheme.colors.border,
-                                        true: currentTheme.colors.primary
-                                    }}
-                                    thumbColor={settings.dynamicBackground ? '#fff' : currentTheme.colors.textSecondary}
-                                />
-                            </View>
 
                             <View style={styles.settingItem}>
                                 <View style={styles.settingInfo}>

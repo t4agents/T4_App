@@ -160,13 +160,13 @@ export const DynamicBackground: React.FC<DynamicBackgroundProps> = ({
 
     return (
         <View style={styles.container}>
-            <Animated.View style={[styles.background, { opacity: fadeAnim }]}>
+            <Animated.View pointerEvents="none" style={[styles.background, { opacity: fadeAnim }]}>
                 <ImageBackground
                     source={{ uri: currentBackgroundUrl }}
                     style={styles.background}
                     resizeMode="cover"
                 >
-                    <View style={styles.overlay} />
+                    <View pointerEvents="none" style={styles.overlay} />
                 </ImageBackground>
             </Animated.View>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, Image, Alert, ActivityIndicator, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -33,19 +33,29 @@ export const CaptureStormScreen: React.FC<CaptureStormScreenProps> = ({ navigati
     const [notes, setNotes] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Remove useEffect(() => { fetchCurrentData(); }, []);
-    // Remove fetchCurrentData function
-    // Remove useState for currentWeather and currentLocation
-    // Use currentWeather and currentLocation from context in handleSave and render logic
+    const placeholderWeather: WeatherData = {
+        temperature: 22,
+        feelsLike: 21,
+        humidity: 58,
+        windSpeed: 9,
+        windDirection: 220,
+        pressure: 1014,
+        visibility: 10,
+        precipitation: 0,
+        weatherDescription: 'Partly cloudy',
+        weatherIcon: 'Cloud',
+        timestamp: new Date().toISOString(),
+    };
 
-    if (!currentWeather || !currentLocation) {
-        return (
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" />
-                <Text style={{ marginTop: 16 }}>Getting latest weather and location...</Text>
-            </SafeAreaView>
-        );
-    }
+    const placeholderLocation: Location = {
+        latitude: 0,
+        longitude: 0,
+        accuracy: 0,
+        timestamp: new Date().toISOString(),
+    };
+
+    const weatherForSave = currentWeather ?? placeholderWeather;
+    const locationForSave = currentLocation ?? placeholderLocation;
 
     const handleTakePhoto = async () => {
         try {
@@ -84,8 +94,8 @@ export const CaptureStormScreen: React.FC<CaptureStormScreenProps> = ({ navigati
             const storm: StormDocumentation = {
                 id: generateId(),
                 photoUri,
-                weatherConditions: currentWeather,
-                location: currentLocation,
+                weatherConditions: weatherForSave,
+                location: locationForSave,
                 dateTime: new Date().toISOString(),
                 notes: notes.trim(),
                 stormType,
