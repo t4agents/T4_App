@@ -4,7 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useColorScheme, StatusBar, LogBox } from 'react-native';
+import { ActivityIndicator, useColorScheme, StatusBar, LogBox, View } from 'react-native';
 import "./global.css";
 import { Ionicons } from '@expo/vector-icons';
 import { darkTheme, lightTheme } from './app/constants/theme';
@@ -13,6 +13,9 @@ import { PayrollScreen } from './app/screens/PayrollScreen';
 import { OnboardingScreen } from './app/screens/OnboardingScreen';
 import { SettingsScreen } from './app/screens/SettingsScreen';
 import { SettingsProvider } from './app/contexts/SettingsContext';
+import { AuthProvider, useAuth } from './app/contexts/AuthContext';
+import { ClientProvider } from './app/contexts/ClientContext';
+import { AuthScreen } from './app/screens/AuthScreen';
 import { RootTabParamList } from './app/types/navigation';
 
 LogBox.ignoreLogs([
@@ -69,20 +72,39 @@ const TabNavigator = () => {
     );
 };
 
+const AppGate = () => {
+    const { user, loading } = useAuth();
+    if (loading) {
+        return (
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
+    if (!user) {
+        return <AuthScreen />;
+    }
+    return <TabNavigator />;
+};
+
 export default function App() {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? 'dark' : 'light';
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <SettingsProvider>
-                <SafeAreaProvider>
-                    <NavigationContainer>
-                        <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
-                        <TabNavigator />
-                    </NavigationContainer>
-                </SafeAreaProvider>
-            </SettingsProvider>
+            <AuthProvider>
+                <SettingsProvider>
+                    <ClientProvider>
+                        <SafeAreaProvider>
+                            <NavigationContainer>
+                                <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
+                                <AppGate />
+                            </NavigationContainer>
+                        </SafeAreaProvider>
+                    </ClientProvider>
+                </SettingsProvider>
+            </AuthProvider>
         </GestureHandlerRootView>
     );
 }

@@ -5,12 +5,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { darkTheme, lightTheme } from '../constants/theme';
 import { useSettings } from '../contexts/SettingsContext';
 import { getSettingsScreenStyles } from '../constants/styles';
+import { useAuth } from '../contexts/AuthContext';
+import { useClient } from '../contexts/ClientContext';
+import { API_BASE_URL } from '../constants/api';
 
 export const SettingsScreen: React.FC = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? 'dark' : 'light';
     const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
     const { settings, updateSetting } = useSettings();
+    const { user, signOut } = useAuth();
+    const { clients, activeClient, setActiveClient, loading: clientsLoading } = useClient();
 
     const resetSampleData = () => {
         Alert.alert(
@@ -119,6 +124,63 @@ export const SettingsScreen: React.FC = () => {
                             thumbColor={settings.notifications ? '#fff' : currentTheme.colors.textSecondary}
                         />
                     </View>
+                </View>
+
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Workspace</Text>
+                    <View style={styles.settingItem}>
+                        <View style={styles.settingInfo}>
+                            <Text style={styles.settingTitle}>Active Client</Text>
+                            <Text style={styles.settingDescription}>
+                                {activeClient?.name ?? 'No client selected'}
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={styles.pillGroup}>
+                        {clients.map((client) => (
+                            <TouchableOpacity
+                                key={client.id}
+                                style={[
+                                    styles.pillButton,
+                                    client.id === activeClient?.id
+                                        ? styles.unitButtonActive
+                                        : styles.unitButtonInactive
+                                ]}
+                                onPress={() => setActiveClient(client.id)}
+                                disabled={clientsLoading}
+                            >
+                                <Text
+                                    style={[
+                                        styles.unitButtonText,
+                                        client.id === activeClient?.id
+                                            ? styles.unitButtonTextActive
+                                            : styles.unitButtonTextInactive
+                                    ]}
+                                >
+                                    {client.name}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </View>
+
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Account</Text>
+                    <View style={styles.settingItem}>
+                        <View style={styles.settingInfo}>
+                            <Text style={styles.settingTitle}>Signed In</Text>
+                            <Text style={styles.settingDescription}>{user?.email ?? 'Unknown user'}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.settingItem}>
+                        <View style={styles.settingInfo}>
+                            <Text style={styles.settingTitle}>API Base</Text>
+                            <Text style={styles.settingDescription}>{API_BASE_URL}</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles.dangerButton} onPress={signOut}>
+                        <Text style={styles.dangerButtonText}>Sign Out</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.section}>

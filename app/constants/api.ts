@@ -1,3 +1,7 @@
+export const API_BASE_URL =
+    process.env.EXPO_PUBLIC_API_URL ||
+    "https://t4agents.fastapicloud.dev";
+
 export const API_ENDPOINTS = {
     WEATHER_CURRENT: 'https://api.open-meteo.com/v1/forecast',
     WEATHER_FORECAST: 'https://api.open-meteo.com/v1/forecast',
