@@ -43,7 +43,7 @@
         "android.permission.READ_MEDIA_VIDEO",
         "android.permission.READ_MEDIA_AUDIO"
       ],
-      "package": "com.t4agents.android"
+      "package": "com.teamofone.t4agents"
     },
     "web": {
       "favicon": "./assets/favicon.png"
